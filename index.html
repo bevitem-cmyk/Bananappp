@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174b2b">
+  <meta name="description" content="Bananapp: monitoreo climático, sanidad vegetal y recomendaciones para el cultivo de banano en Ecuador.">
+  <title>Bananapp | Inteligencia para el cultivo de banano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#inicio" aria-label="Bananapp inicio">
+      <span class="brand-mark">B<span>+</span></span>
+      <span><b>BANANAPP</b><small>AGRO INTELIGENTE</small></span>
+    </a>
+    <div class="side-label">PLATAFORMA</div>
+    <nav>
+      <a class="nav-link active" href="#inicio"><span>▦</span> Resumen general</a>
+      <a class="nav-link" href="#clima"><span>☀</span> Monitor climático</a>
+      <a class="nav-link" href="#temporadas"><span>◷</span> Temporadas</a>
+      <a class="nav-link" href="#cultivo"><span>♧</span> Desarrollo del cultivo</a>
+      <a class="nav-link" href="#sanidad"><span>✚</span> Plagas y enfermedades</a>
+      <a class="nav-link" href="#modelo"><span>◇</span> Planta 3D</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="side-note"><span class="live-dot"></span><div><b>Datos meteorológicos</b><small>Conexión Open-Meteo</small></div></div>
+      <small class="version">BANANAPP · V 1.0.0</small>
+    </div>
+  </aside>
+
+  <main class="main" id="inicio">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">PLATAFORMA DE INTELIGENCIA AGRÍCOLA</div>
+        <h1>Panel de control</h1>
+        <p class="muted">Información para tomar mejores decisiones en el cultivo de banano.</p>
+      </div>
+      <div class="top-actions">
+        <label class="location-select">⌖ <select id="locationSelect" aria-label="Seleccionar ubicación">
+          <option value="-2.170998,-79.922359,Guayaquil">Guayaquil, Guayas</option>
+          <option value="-3.258111,-79.955392,Machala">Machala, El Oro</option>
+          <option value="-3.99313,-79.20422,Loja">Loja, Loja</option>
+          <option value="-1.831239,-78.183406,Ecuador">Ecuador (referencia)</option>
+          <option value="-0.180653,-78.467834,Quito">Quito, Pichincha</option>
+          <option value="-2.90055,-79.00453,Cuenca">Cuenca, Azuay</option>
+        </select></label>
+        <div class="avatar">BA</div>
+      </div>
+    </header>
+
+    <section class="welcome-row">
+      <div><span class="tag">● SISTEMA ACTIVO</span><h2>Hola, productor <span class="banana">🍌</span></h2><p class="muted">Tu cultivo, el clima y la sanidad vegetal en un solo lugar.</p></div>
+      <div class="date-box"><small>FECHA DE CONSULTA</small><b id="todayDate">23 de noviembre de 2026</b><small id="updatedAt">Consultando condiciones actuales…</small></div>
+    </section>
+
+    <section class="section" id="clima">
+      <div class="section-heading"><div><span class="eyebrow">01 / CONDICIONES ACTUALES</span><h2>Monitor climático</h2></div><button class="btn-outline" id="refreshWeather">↻ Actualizar datos</button></div>
+      <div class="weather-grid">
+        <article class="weather-main">
+          <div class="weather-top"><div><small>CLIMA ACTUAL · <span id="placeName">Guayaquil</span></small><h3 id="weatherText">Cargando clima…</h3></div><div class="weather-icon" id="weatherIcon">☀️</div></div>
+          <div class="temperature"><span id="temperature">--</span><sup>°C</sup></div>
+          <div class="weather-foot"><span>🌡 Sensación <b id="feelsLike">--°</b></span><span>☁ Nubosidad <b id="cloudCover">--%</b></span><span>☂ Lluvia <b id="rainNow">-- mm</b></span></div>
+          <div class="weather-source">Fuente: Open-Meteo · Datos meteorológicos automáticos</div>
+        </article>
+        <article class="metric-card"><div class="metric-icon">💧</div><small>HUMEDAD RELATIVA</small><strong id="humidity">--<i>%</i></strong><div class="metric-hint" id="humidityHint">Esperando datos</div><div class="meter"><span id="humidityMeter"></span></div></article>
+        <article class="metric-card"><div class="metric-icon">🌧</div><small>PRECIPITACIÓN</small><strong id="rain">--<i> mm</i></strong><div class="metric-hint">Lluvia registrada en la hora actual</div><div class="meter"><span id="rainMeter"></span></div></article>
+        <article class="metric-card"><div class="metric-icon">💨</div><small>VIENTO</small><strong id="wind">--<i> km/h</i></strong><div class="metric-hint" id="windHint">Velocidad actual</div><div class="meter"><span id="windMeter"></span></div></article>
+      </div>
+      <div class="notice" id="climateAdvice"><span>✦</span><div><b>Lectura agrícola</b><p>Al cargar los datos, Bananapp mostrará una orientación inicial basada en temperatura, humedad y lluvia. Verifica siempre las condiciones reales de tu parcela.</p></div></div>
+      <div class="section-subheading"><div><h3>Pronóstico de los próximos 7 días</h3><p class="muted">Valores diarios estimados para la ubicación seleccionada.</p></div><span class="source-pill">● ACTUALIZACIÓN EN VIVO</span></div>
+      <div class="forecast" id="forecast"><div class="loading">Cargando pronóstico…</div></div>
+    </section>
+
+    <section class="section" id="temporadas">
+      <div class="section-heading"><div><span class="eyebrow">02 / PLANIFICACIÓN ANUAL</span><h2>Temporadas en Ecuador</h2><p class="muted">Patrones generales de la Costa ecuatoriana. El clima varía por zona y año.</p></div></div>
+      <div class="season-grid">
+        <article class="season-card wet"><div class="season-top"><span class="season-icon">🌦</span><span class="season-period">DIC — MAY</span></div><h3>Época lluviosa</h3><p>Mayor humedad y lluvias, especialmente en la región Costa.</p><div class="season-columns"><div><b class="good">VENTAJAS</b><p>Disponibilidad de agua y menor necesidad de riego cuando la lluvia es suficiente.</p></div><div><b class="risk">RIESGOS</b><p>Encharcamiento, erosión, lavado de nutrientes y mayor presión de Sigatoka negra.</p></div></div><div class="season-action">Prioridad: drenajes, monitoreo foliar y nutrición.</div></article>
+        <article class="season-card dry"><div class="season-top"><span class="season-icon">☀️</span><span class="season-period">JUN — NOV</span></div><h3>Época menos lluviosa</h3><p>Menor precipitación en buena parte de la Costa.</p><div class="season-columns"><div><b class="good">VENTAJAS</b><p>Menor presión de enfermedades favorecidas por humedad y labores de campo más accesibles.</p></div><div><b class="risk">RIESGOS</b><p>Déficit hídrico, estrés por calor y menor crecimiento si falta riego.</p></div></div><div class="season-action">Prioridad: riego eficiente, cobertura y vigilancia de humedad del suelo.</div></article>
+      </div>
+      <p class="fine-print">Nota: son referencias estacionales generales, no un pronóstico. Fenómenos como El Niño/La Niña pueden modificar el patrón. Usa los datos de tu finca para decidir.</p>
+    </section>
+
+    <section class="section" id="cultivo">
+      <div class="section-heading"><div><span class="eyebrow">03 / MANEJO AGRONÓMICO</span><h2>Condiciones para el crecimiento</h2></div><span class="source-pill">REFERENCIA TÉCNICA GENERAL</span></div>
+      <div class="grow-grid">
+        <article class="grow-card"><span>🌡️</span><h3>Temperatura</h3><b>26–30 °C</b><p>Rango cálido favorable. Temperaturas fuera del rango pueden ralentizar el desarrollo o causar estrés.</p></article>
+        <article class="grow-card"><span>💧</span><h3>Agua</h3><b>Humedad constante</b><p>Requiere suministro regular de agua, evitando tanto sequía como saturación del suelo.</p></article>
+        <article class="grow-card"><span>🌱</span><h3>Suelo</h3><b>Profundo y drenado</b><p>Suelo fértil, con buena estructura, materia orgánica y drenaje. Evitar compactación.</p></article>
+        <article class="grow-card"><span>☀️</span><h3>Luz solar</h3><b>Alta luminosidad</b><p>Necesita buena exposición solar. Evitar competencia excesiva y mantener densidad apropiada.</p></article>
+      </div>
+      <div class="care-panel"><div><span class="eyebrow">RUTINA DE CAMPO</span><h3>Cuidados esenciales del banano</h3><p class="muted">Una plantación uniforme depende del seguimiento constante.</p></div><ul class="care-list"><li><span>01</span><div><b>Riego y drenaje</b><small>Revisar humedad del suelo y mantener canales funcionales.</small></div></li><li><span>02</span><div><b>Nutrición balanceada</b><small>Basar la fertilización en análisis de suelo y tejido vegetal.</small></div></li><li><span>03</span><div><b>Deshoja sanitaria</b><small>Retirar hojas muy afectadas según el protocolo técnico local y manejar residuos correctamente.</small></div></li><li><span>04</span><div><b>Deshije y soporte</b><small>Regular los hijos y prevenir volcamiento con manejo adecuado.</small></div></li><li><span>05</span><div><b>Monitoreo frecuente</b><small>Registrar vigor, síntomas, plagas, racimos y cambios del clima.</small></div></li></ul></div>
+    </section>
+
+    <section class="section" id="sanidad">
+      <div class="section-heading"><div><span class="eyebrow">04 / SANIDAD VEGETAL</span><h2>Plagas y enfermedades</h2><p class="muted">Identifica señales tempranas y prioriza la prevención.</p></div></div>
+      <div class="pest-grid">
+        <article class="pest-card"><div class="pest-symbol">🍃</div><div><span class="severity high">ALTA ATENCIÓN</span><h3>Sigatoka negra</h3><p>Enfermedad foliar causada por <i>Pseudocercospora fijiensis</i>. Produce manchas y lesiones que reducen el área fotosintética.</p><b>Vigilar:</b><small>Manchas alargadas, líneas oscuras y secado prematuro de hojas.</small><b>Prevención:</b><small>Monitoreo, manejo de hojas afectadas, drenaje y ventilación del cultivo.</small></div></article>
+        <article class="pest-card"><div class="pest-symbol">🪲</div><div><span class="severity medium">ATENCIÓN</span><h3 pic="x">Picudo negro</h3><p><i Cosmopolites sordidus</i>. Sus larvas perforan el cormo y pueden debilitar la planta.</p><b>Vigilar:</b><small>Plantas débiles, crecimiento lento y galerías en el cormo.</small><b>Prevención:</b><small>Material de siembra sano, saneamiento y monitoreo con trampas adecuadas.</small></div></article>
+        <article class="pest-card"><div class="pest-symbol">🦠</div><div><span class="severity high">ALTA ATENCIÓN</span><h3>Fusariosis / TR4</h3><p>Marchitez por <i>Fusarium oxysporum</i> f. sp. <i>cubense</i>. El TR4 es un patógeno cuarentenario de alta importancia.</p><b>Vigilar:</b><small>Amarillamiento, marchitez y decoloración vascular interna.</small><b>Prevención:</b><small>Usar plantas certificadas, controlar movimiento de suelo y desinfectar herramientas según protocolo oficial.</small></div></article>
+        <article class="pest-card"><div class="pest-symbol">🪱</div><div><span class="severity medium">ATENCIÓN</span><h3>Nematodos</h3><p>Organismos microscópicos que dañan raíces y reducen la absorción de agua y nutrientes.</p><b>Vigilar:</b><small>Raíces lesionadas, poco anclaje y plantas con bajo vigor.</small><b>Prevención:</b><small>Análisis de raíces y suelo, material sano y manejo integrado.</small></div></article>
+        <article class="pest-card"><div class="pest-symbol">🌿</div><div><span class="severity medium">ATENCIÓN</span><h3>Moko bacteriano</h3><p>Enfermedad causada por <i>Ralstonia solanacearum</i> (complejo).</p><b>Vigilar:</b><small>Marchitez, amarillamiento y alteraciones en frutos o racimos.</small><b>Prevención:</b><small>Higiene de herramientas, material sano y notificación inmediata ante sospecha.</small></div></article>
+      </div>
+      <div class="alert-box"><b>⚠ Importante: sospecha de enfermedad cuarentenaria</b><p>Si observas síntomas compatibles con Fusarium Raza 4 Tropical o Moko, no traslades plantas, suelo ni material vegetal. Aísla el área y contacta a Agrocalidad para diagnóstico y protocolo oficial. No confirmes una enfermedad solo por fotografías.</p></div>
+    </section>
+
+    <section class="section" id="modelo">
+      <div class="section-heading"><div><span class="eyebrow">05 / SIMULACIÓN VISUAL</span><h2>Tu banano en 3D</h2><p class="muted">Explora un modelo ilustrativo y cambia el escenario climático.</p></div><span class="source-pill">MODELO INTERACTIVO</span></div>
+      <div class="model-layout">
+        <div class="model-view"><div class="model-label"><span class="live-dot"></span> MODELO 3D · ILUSTRATIVO</div><div id="plant3d"></div><div class="model-controls"><button id="rotateBtn" class="control-btn active">↻ Girar</button><button id="resetView" class="control-btn">Restablecer vista</button></div><div class="model-help">Arrastra para girar · Usa la rueda para acercar o alejar</div></div>
+        <div class="model-settings"><span class="eyebrow">ESCENARIO DE CULTIVO</span><h3>Simula condiciones</h3><label>Temperatura <b id="tempValue">28 °C</b><input id="tempRange" type="range" min="15" max="38" value="28"></label><label>Humedad relativa <b id="humidityValue">75 %</b><input id="humidityRange" type="range" min="30" max="100" value="75"></label><label>Disponibilidad de agua <b id="waterValue">75 %</b><input id="waterRange" type="range" min="0" max="100" value="75"></label><div class="plant-status" id="plantStatus"><span class="status-dot"></span><div><b>Condiciones de referencia</b><p>Escenario ilustrativo favorable. Ajusta los controles para observar la orientación de manejo.</p></div></div><button id="useWeather" class="btn-primary">Usar clima actual</button><p class="fine-print">La simulación no es un gemelo digital ni un diagnóstico. La apariencia 3D es ilustrativa y no predice rendimiento o producción real.</p></div>
+      </div>
+    </section>
+
+    <footer><div class="brand footer-brand"><span class="brand-mark">B<span>+</span></span><span><b>BANANAPP</b><small>AGRO INTELIGENTE</small></span></div><p>Herramienta informativa para apoyar el manejo del cultivo de banano.</p><small>Clima: Open-Meteo · Información agronómica: referencias generales; validar con técnico local y autoridades fitosanitarias.</small></footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
